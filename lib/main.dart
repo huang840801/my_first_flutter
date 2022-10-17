@@ -11,14 +11,7 @@ void main() => runApp(MyApp());
 Future<Album> fetchAlbum(String user) async {
   final response =
   await http.get('https://api.github.com/users/$user');
-
-  var capital = <String, String>{
-    'USA':'Washington'
-  };
-  await http.get("456", headers: {
-    "aaa": "456",
-    "aaass": "456"
-  });
+  
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -60,22 +53,27 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Fetch Data Example'),
         ),
-        body: Center(
-          child: FutureBuilder<Album>(
-            future: futureAlbum,
-            builder: (context, snapshot) {
+        body:Column(
+          children: [
+            Center(
+              child: FutureBuilder<Album>(
+                future: futureAlbum,
+                builder: (context, snapshot) {
 
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.login);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data!.login);
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
 
-              // By default, show a loading spinner.
-              return const CircularProgressIndicator();
-            },
-          ),
-        ),
+                  // By default, show a loading spinner.
+                  return const CircularProgressIndicator();
+                },
+              ),
+            ),
+            Image.network("https://titangene.github.io/images/cover/flutter.jpg")
+          ],
+        )
       ),
     );
   }
