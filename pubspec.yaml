@@ -75,7 +75,6 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - images/aaa.png
     - images/login_background.png
     - images/logo_amd_splash.png
 
