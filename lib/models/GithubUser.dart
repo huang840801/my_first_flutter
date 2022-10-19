@@ -1,4 +1,3 @@
-
 class GithubUser {
   final int id;
   final String login;

@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../MyElevatedButton.dart';
+import '../custom/my_elevated_button.dart';
 
 var grey = const Color.fromARGB(255, 135, 142, 151);
 var white = const Color.fromARGB(255, 255, 255, 255);
@@ -20,8 +19,7 @@ class LoginWidget extends StatelessWidget {
         colorScheme: ThemeData().colorScheme.copyWith(primary: grey),
       ),
       debugShowCheckedModeBanner: false,
-      title: "Test",
-      home: LoginPage(),
+      home: const LoginPage(),
     );
   }
 }
@@ -45,18 +43,17 @@ class _LoginPageState extends State<LoginPage> {
             height: double.infinity,
             width: double.infinity,
           ),
-
           Container(
-            padding: EdgeInsets.only(left: 28, top: 50, right: 28, bottom: 0),
+            padding: const EdgeInsets.only(left: 28, top: 0, right: 28, bottom: 0),
             alignment: Alignment.topCenter,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 0),
+                  padding: const EdgeInsets.only(bottom: 50),
                   alignment: Alignment.center,
-                  child:   Image(
+                  child: const Image(
                     image: AssetImage("images/logo_amd_splash.png"),
                     height: 38,
                     width: 120,
@@ -115,7 +112,7 @@ TextFormField buildAccountFormField() {
     decoration: InputDecoration(
         enabledBorder: underlineInputBorder,
         focusedBorder: underlineInputBorder,
-        contentPadding: EdgeInsets.symmetric(vertical: 0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0),
         icon: Icon(Icons.person, color: grey),
         labelText: "请输入账号",
         labelStyle: TextStyle(color: grey, fontSize: 16)),
@@ -137,7 +134,7 @@ TextFormField buildPasswordFormField() {
     decoration: InputDecoration(
       enabledBorder: underlineInputBorder,
       focusedBorder: underlineInputBorder,
-      contentPadding: EdgeInsets.symmetric(vertical: 0),
+      contentPadding: const EdgeInsets.symmetric(vertical: 0),
       icon: Icon(Icons.lock, color: grey),
       labelText: "请输入登录密码",
       labelStyle: TextStyle(color: grey, fontSize: 16),
