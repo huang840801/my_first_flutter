@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../Album.dart';
+import '../models/GithubUser.dart';
 
 
-Future<Album> fetchAlbum(String user) async {
+Future<GithubUser> fetchGithubUser(String user) async {
   final response =
   await http.get('https://api.github.com/users/$user');
 
@@ -16,12 +16,12 @@ Future<Album> fetchAlbum(String user) async {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     print("Huang success");
-    return Album.fromJson(jsonDecode(response.body));
+    return GithubUser.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
     print("Huang error");
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load GithubUser');
   }
 }
 
@@ -33,12 +33,12 @@ class GithubUserWidget extends StatefulWidget {
 }
 
 class _GithubUserState extends State<GithubUserWidget> {
-  late Future<Album> futureAlbum;
+  late Future<GithubUser> futureGithubUser;
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum("huang840801");
+    futureGithubUser = fetchGithubUser("huang840801");
   }
 
   @override
@@ -55,8 +55,8 @@ class _GithubUserState extends State<GithubUserWidget> {
           body:Column(
             children: [
               Center(
-                child: FutureBuilder<Album>(
-                  future: futureAlbum,
+                child: FutureBuilder<GithubUser>(
+                  future: futureGithubUser,
                   builder: (context, snapshot) {
 
                     if (snapshot.hasData) {
@@ -71,8 +71,8 @@ class _GithubUserState extends State<GithubUserWidget> {
                 ),
               ),
               Center(
-                child: FutureBuilder<Album>(
-                  future: futureAlbum,
+                child: FutureBuilder<GithubUser>(
+                  future: futureGithubUser,
                   builder: (context, snapshot) {
 
                     if (snapshot.hasData) {

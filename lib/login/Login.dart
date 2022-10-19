@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../MyElevatedButton.dart';
+
 var grey = const Color.fromARGB(255, 135, 142, 151);
 var white = const Color.fromARGB(255, 255, 255, 255);
 var underlineInputBorder = UnderlineInputBorder(
@@ -43,16 +45,60 @@ class _LoginPageState extends State<LoginPage> {
             height: double.infinity,
             width: double.infinity,
           ),
+
           Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.only(left: 28, top: 50, right: 28, bottom: 0),
+            alignment: Alignment.topCenter,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Container(
+                  padding: EdgeInsets.only(top: 0),
+                  alignment: Alignment.center,
+                  child:   Image(
+                    image: AssetImage("images/logo_amd_splash.png"),
+                    height: 38,
+                    width: 120,
+                  ),
+                ),
                 buildAccountFormField(),
                 Container(
-                  padding: EdgeInsets.only(top: 30),
+                  padding: const EdgeInsets.only(top: 10),
                   child: buildPasswordFormField(),
                 ),
+                Container(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: MyElevatedButton(
+                      height: 56,
+                      gradient: const LinearGradient(
+                        colors: [Color.fromARGB(255, 19, 162, 186), Color.fromARGB(255, 8, 124, 149)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      onPressed: () {},
+                      child: Text(
+                        "登录",
+                        style: TextStyle(fontSize: 18, color: white),
+                      )),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "忘记密码",
+                        style: TextStyle(fontSize: 14, color: grey),
+                      ),
+                      Text(
+                        "联系客服",
+                        style: TextStyle(fontSize: 14, color: grey),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -72,7 +118,7 @@ TextFormField buildAccountFormField() {
         contentPadding: EdgeInsets.symmetric(vertical: 0),
         icon: Icon(Icons.person, color: grey),
         labelText: "请输入账号",
-        labelStyle: TextStyle(color: grey)),
+        labelStyle: TextStyle(color: grey, fontSize: 16)),
   );
 }
 
@@ -94,7 +140,7 @@ TextFormField buildPasswordFormField() {
       contentPadding: EdgeInsets.symmetric(vertical: 0),
       icon: Icon(Icons.lock, color: grey),
       labelText: "请输入登录密码",
-      labelStyle: TextStyle(color: grey),
+      labelStyle: TextStyle(color: grey, fontSize: 16),
     ),
   );
 }
