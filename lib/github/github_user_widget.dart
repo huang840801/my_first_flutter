@@ -1,31 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:my_first_flutter/api/models/response/GithubUserResponse.dart';
 
-import '../models/GithubUser.dart';
-
-
-Future<GithubUser> fetchGithubUser(String user) async {
-  final response =
-  await http.get('https://api.github.com/users/$user');
-
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    print("Huang success");
-    return GithubUser.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    print("Huang error");
-    throw Exception('Failed to load GithubUser');
-  }
-}
+import '../api/api_service.dart';
 
 class GithubUserWidget extends StatefulWidget {
+  const GithubUserWidget({super.key});
+
   // const GithubUser({Key key}) : super(key: key);
 
   @override
@@ -33,7 +15,7 @@ class GithubUserWidget extends StatefulWidget {
 }
 
 class _GithubUserState extends State<GithubUserWidget> {
-  late Future<GithubUser> futureGithubUser;
+  late Future<GithubUserResponse> futureGithubUser;
 
   @override
   void initState() {
@@ -55,7 +37,7 @@ class _GithubUserState extends State<GithubUserWidget> {
           body:Column(
             children: [
               Center(
-                child: FutureBuilder<GithubUser>(
+                child: FutureBuilder<GithubUserResponse>(
                   future: futureGithubUser,
                   builder: (context, snapshot) {
 
@@ -71,7 +53,7 @@ class _GithubUserState extends State<GithubUserWidget> {
                 ),
               ),
               Center(
-                child: FutureBuilder<GithubUser>(
+                child: FutureBuilder<GithubUserResponse>(
                   future: futureGithubUser,
                   builder: (context, snapshot) {
 

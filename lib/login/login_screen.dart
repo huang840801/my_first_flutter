@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_flutter/routes.dart';
 
 import '../custom/my_elevated_button.dart';
+import 'login_view_model.dart';
 
 var grey = const Color.fromARGB(255, 135, 142, 151);
 var white = const Color.fromARGB(255, 255, 255, 255);
@@ -8,8 +10,14 @@ var underlineInputBorder = UnderlineInputBorder(
   borderSide: BorderSide(color: grey),
 );
 
-class LoginWidget extends StatelessWidget {
-  const LoginWidget({super.key});
+TextEditingController accountController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+LoginViewModel viewModel = LoginViewModel();
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  static String routeName = "/login_screen";
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +27,20 @@ class LoginWidget extends StatelessWidget {
         colorScheme: ThemeData().colorScheme.copyWith(primary: grey),
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const LoginWidget(),
+      routes: routes,
     );
   }
 }
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginWidget extends StatefulWidget {
+  const LoginWidget({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginWidget> createState() => _LoginWidgetState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +83,10 @@ class _LoginPageState extends State<LoginPage> {
                         end: Alignment.bottomCenter,
                       ),
                       borderRadius: BorderRadius.circular(10),
-                      onPressed: () {},
+                      onPressed: () {
+                        viewModel.login(accountController.text, passwordController.text);
+                        // Navigator.pushNamed(context, HomeScreen.routeName);
+                      },
                       child: Text(
                         "登录",
                         style: TextStyle(fontSize: 18, color: white),
@@ -107,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
 
 TextFormField buildAccountFormField() {
   return TextFormField(
-    // focusNode: focusNode,
+    controller: accountController,
     style: TextStyle(color: white),
     decoration: InputDecoration(
         enabledBorder: underlineInputBorder,
@@ -121,6 +133,7 @@ TextFormField buildAccountFormField() {
 
 TextFormField buildPasswordFormField() {
   return TextFormField(
+    controller: passwordController,
     style: TextStyle(color: white),
     obscureText: true,
     cursorColor: white,
