@@ -3,6 +3,7 @@ import 'package:my_first_flutter/routes.dart';
 
 import '../custom/my_elevated_button.dart';
 import '../home/home_screen.dart';
+import '../util/SharedPrefences.dart';
 import 'login_view_model.dart';
 
 const grey = Color.fromARGB(255, 135, 142, 151);
@@ -40,80 +41,101 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  late Future<String> loginKey;
+
+  @override
+  void initState() {
+    super.initState();
+    loginKey = getLoginKey();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          const Image(
-            image: AssetImage("images/login_background.png"),
-            fit: BoxFit.cover,
-            height: double.infinity,
-            width: double.infinity,
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: 28, top: 0, right: 28, bottom: 0),
-            alignment: Alignment.topCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 50),
-                  alignment: Alignment.center,
-                  child: const Image(
-                    image: AssetImage("images/logo_amd_splash.png"),
-                    height: 38,
-                    width: 120,
-                  ),
-                ),
-                buildAccountFormField(),
-                Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: buildPasswordFormField(),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: MyElevatedButton(
-                      height: 56,
-                      gradient: const LinearGradient(
-                        colors: [Color.fromARGB(255, 19, 162, 186), Color.fromARGB(255, 8, 124, 149)],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                      onPressed: () async {
+    return Center(
+      child: FutureBuilder<String>(
+        future: loginKey,
+        builder: (context, snapshot) {
+          if (snapshot.data != null && snapshot.data!.isNotEmpty) {
+            Future.delayed(Duration.zero, () {
+              Navigator.pushNamed(context, HomeScreen.routeName);
+            });
+          }
 
-                        var isLoginSuccess = await viewModel.login(accountController.text, passwordController.text);
-                        if (isLoginSuccess) {
-                          Navigator.pushNamed(context, HomeScreen.routeName);
-                        }
-                      },
-                      child: const Text(
-                        "登录",
-                        style: TextStyle(fontSize: 18, color: white),
-                      )),
+          return Scaffold(
+            body: Stack(
+              children: [
+                const Image(
+                  image: AssetImage("images/login_background.png"),
+                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  width: double.infinity,
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "忘记密码",
-                        style: TextStyle(fontSize: 14, color: grey),
+                  padding: const EdgeInsets.only(left: 28, top: 0, right: 28, bottom: 0),
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 50),
+                        alignment: Alignment.center,
+                        child: const Image(
+                          image: AssetImage("images/logo_amd_splash.png"),
+                          height: 38,
+                          width: 120,
+                        ),
                       ),
-                      Text(
-                        "联系客服",
-                        style: TextStyle(fontSize: 14, color: grey),
+                      buildAccountFormField(),
+                      Container(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: buildPasswordFormField(),
                       ),
+                      Container(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: MyElevatedButton(
+                            height: 56,
+                            gradient: const LinearGradient(
+                              colors: [Color.fromARGB(255, 19, 162, 186), Color.fromARGB(255, 8, 124, 149)],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                            onPressed: () async {
+
+                              var isLoginSuccess = await viewModel.login(accountController.text, passwordController.text);
+                              if (isLoginSuccess) {
+                                Navigator.pushNamed(context, HomeScreen.routeName);
+                              }
+                            },
+                            child: const Text(
+                              "登录",
+                              style: TextStyle(fontSize: 18, color: white),
+                            )),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              "忘记密码",
+                              style: TextStyle(fontSize: 14, color: grey),
+                            ),
+                            Text(
+                              "联系客服",
+                              style: TextStyle(fontSize: 14, color: grey),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
+                ),
               ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
