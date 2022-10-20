@@ -20,12 +20,20 @@ class LoginResponse {
 
 class LoginData {
   final String key;
+  final String userName;
+  final int userID;
 
-  LoginData({required this.key});
+  LoginData({
+    required this.key,
+    required this.userName,
+    required this.userID,
+  });
 
   factory LoginData.fromJson(Map<String, dynamic> json) {
     return LoginData(
       key: json['key'],
+      userName: json['userName'],
+      userID: json['userID'],
     );
   }
 }
