@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_first_flutter/routes.dart';
 
 import '../custom/my_elevated_button.dart';
+import '../home/home_screen.dart';
 import 'login_view_model.dart';
 
 const grey = Color.fromARGB(255, 135, 142, 151);
@@ -81,9 +82,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                         end: Alignment.bottomCenter,
                       ),
                       borderRadius: BorderRadius.circular(10),
-                      onPressed: () {
-                        viewModel.login(accountController.text, passwordController.text);
-                        // Navigator.pushNamed(context, HomeScreen.routeName);
+                      onPressed: () async {
+
+                        var isLoginSuccess = await viewModel.login(accountController.text, passwordController.text);
+                        if (isLoginSuccess) {
+                          Navigator.pushNamed(context, HomeScreen.routeName);
+                        }
                       },
                       child: const Text(
                         "登录",

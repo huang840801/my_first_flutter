@@ -25,10 +25,12 @@ class HomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.green,
       body: Center(
         child: Image(
           image: AssetImage("images/login_background.png"),
+          fit: BoxFit.cover,
+          height: double.infinity,
+          width: double.infinity,
         ),
       ),
     );
