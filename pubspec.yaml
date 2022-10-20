@@ -40,9 +40,8 @@ dependencies:
   mobx: ^2.0.4
   flutter_mobx: ^2.0.2
   freezed_annotation: ^0.14.3
-#  dio: ^4.0.0
   http: ^0.12.2
-
+  encrypt : ^5.0.1
 
 dev_dependencies:
   flutter_test:

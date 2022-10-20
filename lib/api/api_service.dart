@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:my_first_flutter/api/models/response/LoginResponse.dart';
+import 'package:my_first_flutter/util/StringUtil.dart';
 
 import 'models/response/GithubUserResponse.dart';
 
@@ -15,17 +16,21 @@ Future<GithubUserResponse> fetchGithubUser(String user) async {
   }
 }
 
-Future<LoginResponse> fetchLogin(String account, String password) async {
+Future<LoginResponse> logon(String account, String password) async {
+  final encryptPassword = encrypt(password);
   final response = await http.post(
       "http://192.168.104.30:7788/Account/LogOnV1/",
       headers: <String, String>{
         "Content-Type": "application/json",
       },
-      body: jsonEncode(<String, String>{"UserName": "Jackson", "password": "6c9748a341ae99"}));
+      body: jsonEncode(<String, String>{
+        "UserName": account,
+        "password": encryptPassword,
+      }));
 
   if (response.statusCode == 200) {
     return LoginResponse.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception("Failed to load GithubUser");
+    throw Exception("Failed to logon");
   }
 }
