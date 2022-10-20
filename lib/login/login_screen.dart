@@ -4,15 +4,12 @@ import 'package:my_first_flutter/routes.dart';
 import '../custom/my_elevated_button.dart';
 import 'login_view_model.dart';
 
-var grey = const Color.fromARGB(255, 135, 142, 151);
-var white = const Color.fromARGB(255, 255, 255, 255);
-var underlineInputBorder = UnderlineInputBorder(
-  borderSide: BorderSide(color: grey),
-);
-
-TextEditingController accountController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-LoginViewModel viewModel = LoginViewModel();
+const grey = Color.fromARGB(255, 135, 142, 151);
+const white = Color.fromARGB(255, 255, 255, 255);
+const underlineInputBorder = UnderlineInputBorder(borderSide: BorderSide(color: grey),);
+final accountController = TextEditingController();
+final passwordController = TextEditingController();
+final viewModel = LoginViewModel();
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -21,6 +18,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       theme: ThemeData().copyWith(
         scaffoldBackgroundColor: Colors.white,
@@ -87,7 +85,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         viewModel.login(accountController.text, passwordController.text);
                         // Navigator.pushNamed(context, HomeScreen.routeName);
                       },
-                      child: Text(
+                      child: const Text(
                         "登录",
                         style: TextStyle(fontSize: 18, color: white),
                       )),
@@ -96,7 +94,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   padding: const EdgeInsets.only(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       Text(
                         "忘记密码",
                         style: TextStyle(fontSize: 14, color: grey),
@@ -120,11 +118,11 @@ class _LoginWidgetState extends State<LoginWidget> {
 TextFormField buildAccountFormField() {
   return TextFormField(
     controller: accountController,
-    style: TextStyle(color: white),
-    decoration: InputDecoration(
+    style: const TextStyle(color: white),
+    decoration: const InputDecoration(
         enabledBorder: underlineInputBorder,
         focusedBorder: underlineInputBorder,
-        contentPadding: const EdgeInsets.symmetric(vertical: 0),
+        contentPadding: EdgeInsets.symmetric(vertical: 0),
         icon: Icon(Icons.person, color: grey),
         labelText: "请输入账号",
         labelStyle: TextStyle(color: grey, fontSize: 16)),
@@ -134,7 +132,7 @@ TextFormField buildAccountFormField() {
 TextFormField buildPasswordFormField() {
   return TextFormField(
     controller: passwordController,
-    style: TextStyle(color: white),
+    style: const TextStyle(color: white),
     obscureText: true,
     cursorColor: white,
     // onSaved: (newValue) => password = newValue,
@@ -144,10 +142,10 @@ TextFormField buildPasswordFormField() {
     validator: (value) {
       return null;
     },
-    decoration: InputDecoration(
+    decoration: const InputDecoration(
       enabledBorder: underlineInputBorder,
       focusedBorder: underlineInputBorder,
-      contentPadding: const EdgeInsets.symmetric(vertical: 0),
+      contentPadding: EdgeInsets.symmetric(vertical: 0),
       icon: Icon(Icons.lock, color: grey),
       labelText: "请输入登录密码",
       labelStyle: TextStyle(color: grey, fontSize: 16),

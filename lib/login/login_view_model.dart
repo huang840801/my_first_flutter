@@ -19,11 +19,11 @@ class LoginViewModel {
         var model = androidInfo.model;
         print("Huang Android $release (SDK $sdkInt), $manufacturer $model");
 
-        futureLogin = fetchLogin(account, password);
+        futureLogin = logon(account, password);
         await futureLogin.then((value) {
           print("Huang message=${value.message}");
           print("Huang message=${value.success}");
-          print("Huang lotteryType=${value.data.key}");
+          print("Huang key=${value.data.key}");
         }).catchError((error) {
           print("Huang error=$error");
         });
