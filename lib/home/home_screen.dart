@@ -7,6 +7,11 @@ class HomeScreen extends StatelessWidget {
 
   static String routeName = "/home_screen";
 
+  static Route getRoute() {
+    Route route = MaterialPageRoute(builder: (context) => const HomeScreen());
+    return route;
+  }
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(

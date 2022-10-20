@@ -57,7 +57,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         builder: (context, snapshot) {
           if (snapshot.data != null && snapshot.data!.isNotEmpty) {
             Future.delayed(Duration.zero, () {
-              Navigator.pushNamed(context, HomeScreen.routeName);
+              goToHomePage(context);
             });
           }
 
@@ -105,7 +105,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                               var isLoginSuccess = await viewModel.login(accountController.text, passwordController.text);
                               if (isLoginSuccess) {
-                                Navigator.pushNamed(context, HomeScreen.routeName);
+                                goToHomePage(context);
                               }
                             },
                             child: const Text(
@@ -138,6 +138,11 @@ class _LoginWidgetState extends State<LoginWidget> {
         },
       ),
     );
+  }
+
+  void goToHomePage(BuildContext context) {
+    Route route = HomeScreen.getRoute();
+    Navigator.pushReplacement(context, route);
   }
 }
 
