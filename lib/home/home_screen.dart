@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:my_first_flutter/api/api_service.dart';
 import 'package:my_first_flutter/api/models/response/Match2Response.dart';
-import '../util/SharedPrefences.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+import '../MarqueeWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   static String routeName = "/home_screen";
 
   static Route getRoute() {
-    Route route = MaterialPageRoute(builder: (context) => const HomeScreen());
+    Route route = MaterialPageRoute(builder: (context) => MainApp());
     return route;
   }
 
@@ -32,7 +35,6 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-
   late Future<Match2Response> match2Response;
 
   @override
@@ -67,6 +69,66 @@ class _HomeWidgetState extends State<HomeWidget> {
         //   ),
         // ),
       ],
+    );
+  }
+}
+
+class MainApp extends StatelessWidget {
+  var androidVersionNames = ["Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb", "Ice Cream Sandwich", "Jellybean", "Kitkat", "Lollipop", "Marshmallow", "Nougat", "Oreo", "Pie"];
+  var slideTransitionHome = SlideTransitionHome();
+
+  @override
+  Widget build(BuildContext context) {
+    slideTransitionHome.setText("123456789");
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Hello Flutter"),
+      ),
+      body:
+      // slideTransitionHome
+      // slideTransitionHome.setText("Hello 123")
+
+      WebView(
+        initialUrl: "https://www.google.com.tw",
+      ),
+      // body: ListView.builder(
+      //   itemBuilder: (context, position) {
+      //     switch (position % 3) {
+      //       case 0:
+      //         {
+      //           return Image.network("https://titangene.github.io/images/cover/flutter.jpg");
+      //         }
+      //         break;
+      //       default:
+      //         {
+      //           return Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: <Widget>[
+      //               Padding(
+      //                 padding: const EdgeInsets.only(left: 16.0, top: 20.0, right: 16.0, bottom: 20.0),
+      //                 child: Text(
+      //                   androidVersionNames[position],
+      //                   style: TextStyle(
+      //                     fontWeight: FontWeight.bold,
+      //                     fontSize: 16.0,
+      //                   ),
+      //                 ),
+      //               ),
+      //               Padding(
+      //                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      //                 child: Divider(
+      //                   height: 1.0,
+      //                   color: Colors.grey,
+      //                 ),
+      //               )
+      //             ],
+      //           );
+      //         }
+      //     }
+      //   },
+      //   itemCount: androidVersionNames.length,
+      // ),
     );
   }
 }

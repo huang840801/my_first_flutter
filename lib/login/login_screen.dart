@@ -102,10 +102,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                             borderRadius: BorderRadius.circular(10),
                             onPressed: () async {
-
+                              goToHomePage(context);
                               var isLoginSuccess = await viewModel.login(accountController.text, passwordController.text);
                               if (isLoginSuccess) {
                                 goToHomePage(context);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("login fail")));
                               }
                             },
                             child: const Text(
